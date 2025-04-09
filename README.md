@@ -3,4 +3,4 @@ BOOK MANAGEMENT SYSTEM PROJECT "designed with html,javascripts and css",followin
 
 
 
-![image](bkms-1.PNG)
+![image](./bkms.PNG)
