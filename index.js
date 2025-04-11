@@ -92,10 +92,11 @@ function openEditBookModal(bookId) {
   modal.show();
 
   setTimeout(() => {
-    // Update modal title and button text
-    document.querySelector(".modal-title").innerText = "Edit Book";
-    document.querySelector("button[type='submit']").innerText = "Update Book";
-
+    setTimeout(() => {
+      document.querySelector(".modal-title").innerText = "Edit Book";
+      document.getElementById("submitBookBtn").innerText = "Update Book";
+    }, 100);
+    
     // Pre-fill form with book data
     document.getElementById("bookId").value = book.id;
     document.getElementById("title").value = book.title;
@@ -171,6 +172,7 @@ function deleteBook(bookId) {
   books = books.filter((book) => book.id !== bookId);
   localStorage.setItem("books", JSON.stringify(books));
   loadBooks();
+  
 }
 
 function searchBooks(input) {
@@ -212,3 +214,4 @@ function searchBooks(input) {
     bookList.innerHTML = `<p class="text-center text-muted">No books found</p>`;
   }
 }
+
