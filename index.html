@@ -1,117 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Book Management System</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="index.css">
-</head>
-<style>
-    body{
-        background-color: #d0e4fe;
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="index.css"/>
+  <style>
+    body {
+      background-color: #d0e4fe;
     }
-</style>
+  </style>
+</head>
 <body>
   <div class="book-container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h2 class="text-center" style="margin-left: 180px;">📖  BOOK MANAGEMENT SYSTEM</h2>
-      <!-- Add Book Button -->
+      <h2 class="text-center" style="margin-left: 180px;">📖 BOOK MANAGEMENT SYSTEM</h2>
       <button class="btn btn-info mt-3" data-bs-toggle="modal" data-bs-target="#addBookModal">+ Add Book</button> 
     </div>
 
+    <!-- Tabs for Book Categories -->
+    <div class="row">
+      <ul class="nav nav-tabs justify-content-center" id="bookTabs">
+        <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#allBooks">📚 All Books</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#favorites">❤️ Favorites</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#unread">📖 Unread</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#read">✅ Read</a></li>
+      </ul>
+    </div>
 
-      <input 
-        type="text" 
-        class="form-control mb-3 search-input" 
-        placeholder=" 🔎   Search All books by Title or Author..." 
-        onkeyup="searchBooks(this)">
-
-        <!-- Tabs for Book Categories -->
-        <div class="row">
-        <ul class="nav nav-tabs justify-content-center" id="bookTabs">
-            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#allBooks"> 📚 All Books</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#favorites"> ❤️Favorites</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#unread"> 📖Unread</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#read"> ✅Read</a></li>
-        </ul>
+    <!-- Tab Content -->
+    <div class="tab-content mt-3">
+      <div id="allBooks" class="tab-pane fade show active">
+        <input type="text" class="form-control mb-3" placeholder="🔎 Search All Books by Title or Author" oninput="searchBooks(this, 'all')">
+        <div class="row" id="bookList"></div>
       </div>
-
-        <!-- Tab Content -->
-        <div class="tab-content mt-3">
-          <div id="allBooks" class="tab-pane fade show active">
-              <div class="row" id="bookList"></div>
-          </div>
-          <div id="favorites" class="tab-pane fade">
-              <div class="row" id="favoriteList"></div>
-          </div>
-          <div id="unread" class="tab-pane fade">
-              <div class="row" id="unreadList"></div>
-          </div>
-          <div id="read" class="tab-pane fade">
-              <div class="row" id="readList"></div>
-          </div>
-        </div>
-
-      
-
-
-    <!-- Add/Edit Book Modal -->
-<div class="modal fade" id="addBookModal">
-  <div class="modal-dialog">
-    <div class="modal-content border-0 shadow-lg rounded-4">
-      
-      
-      <!-- Add Book Button -->
-<button id="addBookButton" class="btn btn-primary">
-  📘 Add Book
-</button>
-
-      
-      <!-- Body with soft background -->
-      <div class="modal-body bg-light">
-        <form id="bookForm">
-          <input type="hidden" id="bookId">
-          
-          <div class="mb-3">
-            <label class="form-label">📌 Title</label>
-            <input type="text" id="title" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">👨‍💼 Author</label>
-            <input type="text" id="author" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">🏷️ Genre</label>
-            <input type="text" id="genre" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">📊 Status</label>
-            <select id="status" class="form-select">
-              <option value="Unread">📖 Unread</option>
-              <option value="Read">✅ Read</option>
-              <option value="Favorites">❤️ Favorites</option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">🖼️ Upload Book Cover Image</label>
-            <input type="file" id="image" class="form-control">
-          </div>
-
-          <button type="submit" class="btn btn-primary w-100">💾 Save Book</button>
-        </form>
+      <div id="favorites" class="tab-pane fade">
+        <input type="text" class="form-control mb-3" placeholder="🔎 Search Favorites" oninput="searchBooks(this, 'favorites')">
+        <div class="row" id="favoriteList"></div>
       </div>
-
+      <div id="unread" class="tab-pane fade">
+        <input type="text" class="form-control mb-3" placeholder="🔎 Search Unread Books" oninput="searchBooks(this, 'unread')">
+        <div class="row" id="unreadList"></div>
+      </div>
+      <div id="read" class="tab-pane fade">
+        <input type="text" class="form-control mb-3" placeholder="🔎 Search Read Books" oninput="searchBooks(this, 'read')">
+        <div class="row" id="readList"></div>
+      </div>
     </div>
   </div>
-</div>
 
-/ 
-  <!--Bootstrap JS import-->
+  <!-- Add/Edit Book Modal -->
+  <div class="modal fade" id="addBookModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title">📘 Add Book</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body bg-light">
+          <form id="bookForm">
+            <input type="hidden" id="bookId">
+
+            <div class="mb-3">
+              <label class="form-label">📌 Title</label>
+              <input type="text" id="title" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">👨‍💼 Author</label>
+              <input type="text" id="author" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">🏷️ Genre</label>
+              <input type="text" id="genre" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">📊 Status</label>
+              <select id="status" class="form-select">
+                <option value="Favorites">Favorites</option>
+                <option value="Unread">📖 Unread</option>
+                <option value="Read">✅ Read</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">🖼️ Upload Book Cover Image</label>
+              <input type="file" id="image" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" id="submitBookBtn">💾 Save Book</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">⚠️ Confirm Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Are you sure you want to delete this book?</p>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="index.js"></script>
 </body>
